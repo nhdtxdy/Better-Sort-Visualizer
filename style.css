@@ -1,4 +1,137 @@
-#text {
-  opacity: 0;
-  transition: opacity 1s ease-in-out;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    scroll-snap-type: y mandatory;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    height: 100vh;
+}
+
+.allow-scrolling {
+    overflow-y: scroll;
+}
+
+section {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    scroll-snap-align: start;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+section.active {
+    opacity: 1;
+}
+
+#intro {
+    background-color: white;
+}
+
+#gallery {
+    background-color: black;
+}
+
+#main-text {
+    text-transform: uppercase;
+}
+
+.align-bottom {
+    position: absolute;
+    bottom: 0;
+    color: gray;
+    opacity: 0;
+    transition: opacity 2s ease 1s;
+    font-size: .8em;
+}
+
+@keyframes float {
+    from, to {
+        transform: translateY(-0%);
+    }
+
+    50% {    
+        transform: translateY(-10%);
+    }
+}
+
+@keyframes background-pan {
+    from {
+        background-position: 1000% center;
+    }
+
+    to {
+        background-position: 0% center;
+    }
+}
+
+.fancy:hover > .outer > .inner > .letter{
+    background: linear-gradient(to right, salmon, orange, cyan, salmon);
+    background-size: 1000%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: background-pan 60s ease-out infinite;
+  }
+
+.fancy span {
+    display: inline-block;
+}
+
+.fancy > .outer {
+    transition: transform 350ms ease;
+}
+
+.fancy:hover > .outer {
+    transition-duration: 800ms;
+}
+
+.fancy:hover > .outer > .inner {
+    animation: float 5s ease infinite;
+}
+
+#image-track {
+    display: flex;
+    flex-direction: row;
+    gap: 3vmin;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(0%, -50%); 
+    overflow-x: hidden;
+    user-select: none; /* -- Prevent image highlighting -- */
+}
+
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(100,100,100,0.3);
+	color: white;
+	text-align:center;
+    opacity: 0;
+    transition: opacity 1s;
+}
+
+.overlay:hover {
+    opacity: 1;
+    transition: opacity 1s;
+}
+
+#image-track .image {
+    width: 40vmin;
+    height: 56vmin;
+    object-fit: cover;
+    object-position: 100% center;
+}
+
+.img-container {
+	position: relative;
 }

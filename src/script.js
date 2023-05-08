@@ -1,5 +1,7 @@
 const pages = document.querySelectorAll("section");
 const mainPage = document.querySelector("#main-page");
+const mainGallery = document.querySelector("#main-gallery");
+
 let currentPage = 0;
 let scrollTrack = 0;
 
@@ -8,6 +10,8 @@ console.log("here");
 mainPage.addEventListener('scroll', reveal);
 
 function reveal() {
+    let scrollDownText = document.querySelector('#scroll-down');
+    scrollDownText.style.display = "none";
     let reveals = document.querySelectorAll(".reveal");
 
     for (let i = 0; i < reveals.length; i++) {
@@ -22,3 +26,7 @@ function reveal() {
         }
     }
 }
+
+mainGallery.addEventListener('scroll', (event) => {
+    console.log('xd');
+});

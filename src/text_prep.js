@@ -15,6 +15,7 @@ function enhance(id) {
         const letter = document.createElement("span");
         letter.className = "letter";
         letter.innerText = value;
+        letter.style.textShadow = "1px 1px 1px gray";
         inner.appendChild(letter);    
         
         outer.appendChild(inner);    

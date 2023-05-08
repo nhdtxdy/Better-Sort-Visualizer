@@ -12,7 +12,7 @@ function enhance(element) {
         outer.className = "outer";
         const inner = document.createElement("span");
         inner.className = "inner";
-        inner.style.animationDelay = `${rand(-5000, 0)}ms`;
+        inner.style.animationDelay = `${rand(0, 5000)}ms`;
         const letter = document.createElement("span");
         letter.className = "letter";
         letter.innerText = value;
@@ -30,6 +30,28 @@ function letHimCook(event) {
     outers.forEach((outer, index) => {
         outer.style.transform = `translate(${rand(-30, 30)}%, ${rand(-20, 20)}%) rotate(${rand(-10, 10)}deg)`;
     });
+    fadeIn(document.getElementById("scroll-down"));
+    document.getElementById("main-page").classList.add("allow-scrolling");
+}
+
+function startCooking(target) {
+    let letters = target.querySelectorAll('.outer > .inner > .letter');
+    console.log("here we go");
+    console.log(letters);
+    for (let letter of letters) {
+        letter.style = "background: linear-gradient(to right, salmon, orange, cyan, salmon); background-size: 1000%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: background-pan 60s ease-out infinite;";
+    }
+    while (!target.classList.contains("fancy"))
+        target = target.parentNode;
+    let outers = target.querySelectorAll(".outer");
+    outers.forEach((outer, index) => {
+        outer.style.transform = `translate(${rand(-30, 30)}%, ${rand(-20, 20)}%) rotate(${rand(-10, 10)}deg)`;
+    });
+    setInterval(() => {
+        outers.forEach((outer, index) => {
+            outer.style.transform = `translate(${rand(-30, 30)}%, ${rand(-20, 20)}%) rotate(${rand(-10, 10)}deg)`;
+        });
+    }, 1500);
     fadeIn(document.getElementById("scroll-down"));
     document.getElementById("main-page").classList.add("allow-scrolling");
 }
@@ -66,8 +88,7 @@ function hacker_effect() {
             enhance(main_text);
             const fancy = document.querySelector('.fancy');
             outers = fancy.querySelectorAll('.outer');
-            main_text.addEventListener('mouseover', letHimCook);
-            main_text.addEventListener('mouseleave', letHimFinish);
+            setTimeout(() => { startCooking(fancy); }, 500);
         }
 
         iteration += 1/5;
@@ -76,7 +97,7 @@ function hacker_effect() {
 
 hacker_effect();
 
-const track = document.getElementById("image-track");
+const track = document.querySelector(".image-track");
 
 const handleOnDown = e => track.dataset.mouseDownAt = e.clientX;
 
@@ -112,9 +133,44 @@ let fancyElts = document.querySelectorAll('.fancy');
 for (const fancy of fancyElts) {
     if (fancy === main_text) continue;
     enhance(fancy);
-    fancy.addEventListener('mouseover', letHimCook);
-    fancy.addEventListener('mouseleave', letHimFinish);
 }
+
+function typeText(description) {
+    const targetText = description.dataset.value;
+    if (description.textContent.length < targetText.length) {
+        description.textContent += targetText.charAt(description.textContent.length);
+        setTimeout(() => {
+            typeText(description);
+        }, 50);
+    }
+}
+
+function letOverlayCook(event) {
+    let target = event.target.firstElementChild;
+    let description = event.target.querySelector('.description');
+    let outers = target.querySelectorAll(".outer");
+    outers.forEach((outer, index) => {
+        outer.style.transform = `translate(${rand(-5, 5)}%, ${rand(-5, 5)}%) rotate(${rand(-10, 10)}deg)`;
+    });
+    setTimeout(() => {
+        typeText(description);
+    }, 50);
+}
+
+function letOverlayFinish(event) {
+    let target = event.target.firstElementChild;
+    let outers = target.querySelectorAll(".outer");
+    outers.forEach((outer, index) => {
+        outer.style.transform = `translate(0%, 0%) rotate(0deg)`;
+    });
+}
+
+// Add exploding effect to overlays
+const overlays = document.querySelectorAll('.overlay');
+overlays.forEach(overlay => {
+    overlay.addEventListener('mouseenter', letOverlayCook);
+    overlay.addEventListener('mouseleave', letOverlayFinish);
+});
 
 /* -- Had to add extra lines for touch events -- */
 

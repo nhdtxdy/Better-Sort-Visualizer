@@ -76,14 +76,6 @@ section {
     }
 }
 
-.fancy:hover > .outer > .inner > .letter{
-    background: linear-gradient(to right, salmon, orange, cyan, salmon);
-    background-size: 1000%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: background-pan 60s ease-out infinite;
-  }
-
 .fancy span {
     display: inline-block;
 }
@@ -96,19 +88,19 @@ section {
     transition-duration: 800ms;
 }
 
-.fancy:hover > .outer > .inner {
+.fancy > .outer > .inner {
     animation: float 5s ease infinite;
 }
 
-#image-track {
+.image-track {
     display: flex;
     flex-direction: row;
     gap: 3vmin;
     position: absolute;
-    left: 50%;
+    left: 20%;
     top: 50%;
     transform: translate(0%, -50%); 
-    overflow-x: hidden;
+    overflow-y: hidden;
     user-select: none; /* -- Prevent image highlighting -- */
 }
 
@@ -116,21 +108,30 @@ section {
 	position: absolute;
 	top: 0;
 	left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(100,100,100,0.4);
+	background-color: rgba(100,100,100,0.8);
 	color: white;
 	text-align:center;
     opacity: 0;
     transition: opacity 1s;
 }
 
+.overlay .description {
+    text-align: left;
+    font-size: .5em;
+}
+
+
 .overlay:hover {
     opacity: 1;
     transition: opacity 1s;
 }
 
-#image-track .image {
+.image-track .image {
     width: 40vmin;
     height: 56vmin;
     object-fit: cover;
@@ -139,4 +140,21 @@ section {
 
 .img-container {
 	position: relative;
+    width: 40vmin;
+	height: 56vmin;
+}
+
+.side-content {
+    position: absolute;
+	top: 0;
+	left: 0;
+    display: flex;
+    width: 40vmin;
+	height: 56vmin;
+    flex-direction: column;
+    justify-content: center;
+	color: white;
+	text-align:center;
+    opacity: 1;
+    transition: opacity 1s;
 }

@@ -1,17 +1,24 @@
 const pages = document.querySelectorAll("section");
 const mainPage = document.querySelector("#main-page");
 let currentPage = 0;
+let scrollTrack = 0;
 
-document.addEventListener('wheel', (event) => {
-    const direction = event.deltaY > 0 ? "down" : "up";
-    const nextPage = direction === "down" ? currentPage + 1 : currentPage - 1;
+console.log("here");
 
-    if (pages[nextPage] && mainPage.classList.contains("allow-scrolling")) {
-        pages[currentPage].classList.remove("active");
-        pages[nextPage].classList.add("active");
-        currentPage = nextPage;
+mainPage.addEventListener('scroll', reveal);
+
+function reveal() {
+    let reveals = document.querySelectorAll(".reveal");
+
+    for (let i = 0; i < reveals.length; i++) {
+        let windowHeight = window.innerHeight;
+        let elementTop = reveals[i].getBoundingClientRect().top;
+        let elementVisible = 150;
+
+        if (elementTop < windowHeight - elementVisible) {
+            reveals[i].classList.add("active");
+        } else {
+            reveals[i].classList.remove("active");
+        }
     }
-    if (pages[currentPage].id == "gallery") {
-        // adjust scroll behavior accordingly
-    }
-});
+}

@@ -28,7 +28,7 @@ function letHimCook(event) {
         target = target.parentNode;
     let outers = target.querySelectorAll(".outer");
     outers.forEach((outer, index) => {
-        outer.style.transform = `translate(${rand(-30, 30)}%, ${rand(-30, 30)}%) rotate(${rand(-10, 10)}deg)`;
+        outer.style.transform = `translate(${rand(-30, 30)}%, ${rand(-20, 20)}%) rotate(${rand(-10, 10)}deg)`;
     });
     fadeIn(document.getElementById("scroll-down"));
     document.getElementById("main-page").classList.add("allow-scrolling");

@@ -1,31 +1,18 @@
+'use strict';
+
 async function bubbleSort(array) {
-  let bars = document.getElementsByClassName("bar");
-  for (let i = 0; i < array.length; i++) {
-    for (let j = 0; j < array.length - i - 1; j++) {
-      if (array[j] > array[j + 1]) {
-        for (let k = 0; k < bars.length; k++) {
-          if (k !== j && k !== j + 1) {
-            bars[k].style.backgroundColor = "aqua";
-          }
+    for (let i = 1; i < array.length; i++) {
+        for (let j = 0; j < array.length-i; j++) {
+            if (!running) return;
+            if (compare(j, j+1)) {
+                await swap(j, j+1);
+            }
         }
-        let temp = array[j];
-        array[j] = array[j + 1];
-        array[j + 1] = temp;
-        console.log('here');
-        bars[j].style.height = `${array[j] * heightFactor}%`;
-        bars[j].style.backgroundColor = "lightgreen";
-        //bars[j].innerText = array[j];
-        bars[j + 1].style.height = `${array[j+1] * heightFactor}%`;
-        bars[j + 1].style.backgroundColor = "lightgreen";
-        //bars[j + 1].innerText = array[j + 1];
-        await sleep(speedFactor);
-      }
     }
-    await sleep(speedFactor);
-  }
-  return array;
 }
 
-sort_btn.addEventListener("click", function () {
-  bubbleSort(unsorted_array);
+sort_btn.addEventListener("click", async function () {
+    running = true;
+    await bubbleSort(unsorted_array);
+    batChest();
 });

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="src/smallStyle.css" />
     <script src="src/req.js" defer></script>
-    <script src="src/bubble_sort.js" defer></script>
+    <script src="src/heap_sort.js" defer></script>
     <title>Sorting Visualizer</title>
   </head>
   <body>
@@ -16,7 +16,7 @@
                 type="range"
                 id="slider"
                 min="10"
-                max="10000"
+                max="1000"
                 step="5"
                 value="100"
             />
@@ -28,12 +28,13 @@
             </select>
 
             <button id="randomize_array_btn">Randomize Array</button>
-            <button id="sort_btn">Start</button>
-            <button id="stop">Stop</button>
+            <button id="sort_btn">Sort</button>
 
             </div>
-        <section id="sort-container">
+        <section>
+            <div id="sort-container">
 
+            </div>
         </section>
     </div>
   </body>

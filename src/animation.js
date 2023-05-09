@@ -36,11 +36,9 @@ function letHimCook(event) {
 
 function startCooking(target) {
     let letters = target.querySelectorAll('.outer > .inner > .letter');
-    console.log("here we go");
-    console.log(letters);
-    for (let letter of letters) {
+    letters.forEach((letter) => {
         letter.style = "background: linear-gradient(to right, salmon, orange, cyan, salmon); background-size: 1000%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: background-pan 60s ease-out infinite;";
-    }
+    });
     while (!target.classList.contains("fancy"))
         target = target.parentNode;
     let outers = target.querySelectorAll(".outer");
@@ -120,12 +118,12 @@ const handleOnMove = e => {
   
   track.animate({
     transform: `translate(${nextPercentage}%, -50%)`
-  }, { duration: 1200, fill: "forwards" });
+  }, { duration: 1100, fill: "forwards" });
   
   for(const image of track.getElementsByClassName("image")) {
     image.animate({
       objectPosition: `${100 + nextPercentage}% center`
-    }, { duration: 1200, fill: "forwards" });
+    }, { duration: 1100, fill: "forwards" });
   }
 }
 
@@ -135,42 +133,54 @@ for (const fancy of fancyElts) {
     enhance(fancy);
 }
 
-function typeText(description) {
-    const targetText = description.dataset.value;
-    if (description.textContent.length < targetText.length) {
-        description.textContent += targetText.charAt(description.textContent.length);
-        setTimeout(() => {
-            typeText(description);
-        }, 50);
-    }
+function scrollToPage(pageName) {
+    document.querySelector('#main-page').classList.add('out');
+    setTimeout(() => {window.location.href = pageName;}, 1000);
 }
 
-function letOverlayCook(event) {
+// Add exploding effect to overlays
+const overlays = document.querySelectorAll('.overlay');
+let intervals = Array(overlays.length);
+overlays.forEach((overlay, index) => {
+    overlay.addEventListener('mouseenter', (event) => {
+        letOverlayCook(event, index);
+    });
+    overlay.addEventListener('mouseleave', (event) => {
+        letOverlayFinish(event, index);
+    });
+    overlay.addEventListener('dblclick', (event) => {
+        scrollToPage(overlay.id + '.html');
+    });
+});
+
+function typeText(description, interval) {
+    const targetText = description.dataset.value;
+    if (description.textContent.length < targetText.length)
+        description.textContent += targetText.charAt(description.textContent.length);
+    else
+        clearInterval(interval);
+}
+
+function letOverlayCook(event, index) {
     let target = event.target.firstElementChild;
     let description = event.target.querySelector('.description');
     let outers = target.querySelectorAll(".outer");
     outers.forEach((outer, index) => {
         outer.style.transform = `translate(${rand(-5, 5)}%, ${rand(-5, 5)}%) rotate(${rand(-10, 10)}deg)`;
     });
-    setTimeout(() => {
-        typeText(description);
-    }, 50);
+    intervals[index] = setInterval(() => {
+        typeText(description, intervals[index]);
+    }, 45);
 }
 
-function letOverlayFinish(event) {
+function letOverlayFinish(event, index) {
     let target = event.target.firstElementChild;
     let outers = target.querySelectorAll(".outer");
     outers.forEach((outer, index) => {
         outer.style.transform = `translate(0%, 0%) rotate(0deg)`;
     });
+    clearInterval(intervals[index]);
 }
-
-// Add exploding effect to overlays
-const overlays = document.querySelectorAll('.overlay');
-overlays.forEach(overlay => {
-    overlay.addEventListener('mouseenter', letOverlayCook);
-    overlay.addEventListener('mouseleave', letOverlayFinish);
-});
 
 /* -- Had to add extra lines for touch events -- */
 

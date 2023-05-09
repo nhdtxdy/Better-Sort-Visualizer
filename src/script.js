@@ -2,11 +2,6 @@ const pages = document.querySelectorAll("section");
 const mainPage = document.querySelector("#main-page");
 const mainGallery = document.querySelector("#main-gallery");
 
-let currentPage = 0;
-let scrollTrack = 0;
-
-console.log("here");
-
 mainPage.addEventListener('scroll', reveal);
 
 function reveal() {
@@ -26,7 +21,3 @@ function reveal() {
         }
     }
 }
-
-mainGallery.addEventListener('scroll', (event) => {
-    console.log('xd');
-});

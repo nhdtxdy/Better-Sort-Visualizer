@@ -10,6 +10,19 @@
     overflow-y: hidden;
     height: 100vh;
     font-family: monospace;
+    transform: translateY(0);
+    transition: transform 0.5s ease;
+    /* background: black; */
+}
+
+.container.out {
+    transform: translateY(-100%);
+    /* transition: transform 1s ease; */
+}
+
+.container.in {
+    transform: translateY(0);
+    /* transition: transform 1s ease; */
 }
 
 .allow-scrolling {
@@ -28,7 +41,7 @@ section {
 .reveal {
     position: relative;
     opacity: 0;
-    transition: 1s all linear;
+    transition: 0.8s all linear;
 }
 
 .reveal.active {
@@ -81,11 +94,7 @@ section {
 }
 
 .fancy > .outer {
-    transition: transform 350ms ease;
-}
-
-.fancy:hover > .outer {
-    transition-duration: 800ms;
+    transition: transform 800ms ease;
 }
 
 .fancy > .outer > .inner {
@@ -97,7 +106,7 @@ section {
     flex-direction: row;
     gap: 3vmin;
     position: absolute;
-    left: 20%;
+    left: 10%;
     top: 50%;
     transform: translate(0%, -50%); 
     overflow-y: hidden;
@@ -113,11 +122,12 @@ section {
     justify-content: space-between;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(100,100,100,0.8);
+	background-color: rgba(100,100,100,0.7);
 	color: white;
 	text-align:center;
     opacity: 0;
     transition: opacity 1s;
+    cursor: pointer;
 }
 
 .overlay .description {
@@ -131,17 +141,33 @@ section {
     transition: opacity 1s;
 }
 
-.image-track .image {
-    width: 40vmin;
-    height: 56vmin;
+.image-container .image {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     object-position: 100% center;
 }
 
-.img-container {
+.image-container {
+    display: flex;
 	position: relative;
     width: 40vmin;
-	height: 56vmin;
+	height: 55vmin;
+    opacity: 1;
+    transition: all 1s ease;
+}
+
+.image-container:not(:has(.side-content)):hover  {
+    width: 45vmin;
+    height: 60vmin;
+    transition: all 1s ease;
+}
+
+.image-track:has(.image-container:hover):not(:has(.side-content:hover)) .image-container:not(:has(.side-content)):not(:hover) {
+    opacity: 0.3;
+    width: 40vmin;
+	height: 55vmin;
+    transition: all 1s ease;
 }
 
 .side-content {
@@ -149,12 +175,28 @@ section {
 	top: 0;
 	left: 0;
     display: flex;
-    width: 40vmin;
-	height: 56vmin;
+    width: 100%;
+	height: 100%;
     flex-direction: column;
     justify-content: center;
 	color: white;
 	text-align:center;
     opacity: 1;
     transition: opacity 1s;
+}
+
+.additional-text {
+    color: white;
+    opacity: 0.1;
+    transition: opacity 1s ease;
+}
+
+.side-content:hover .additional-text {
+    opacity: 0.4;
+    transition: opacity 1s ease;
+}
+
+.image-track:has(.image-container:hover):not(:has(.side-content:hover)) .side-content .additional-text {
+    opacity: 1;
+    transition: opacity 1s ease;
 }

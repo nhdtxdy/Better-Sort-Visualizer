@@ -5,35 +5,65 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="src/smallStyle.css" />
+    <script src="src/script.js" defer></script>
     <script src="src/req.js" defer></script>
     <script src="src/bubble_sort.js" defer></script>
     <title>Sorting Visualizer</title>
   </head>
   <body>
     <div class="container">
-        <div class="button-container">
-            <input
+        <section id="intro">
+          
+        </section>
+        
+        <section id="main" class="reveal">
+          <div class="button-container">
+            <div class="button-group">
+              <label for="speed">Animation speed</label>
+              <input
                 type="range"
-                id="slider"
-                min="10"
-                max="10000"
-                step="5"
-                value="100"
+                id="speed"
+                min="1"
+                max="100"
+                step="1"
+                value="20"
+                class="slider"
             />
-    
-            <select name="" id="speed">
-                <option value="100">Slow</option>
-                <option value="50">Medium</option>
-                <option value="10">Fast</option>
-            </select>
-
-            <button id="randomize_array_btn">Randomize Array</button>
-            <button id="sort_btn">Start</button>
-            <button id="stop">Stop</button>
-
             </div>
-        <section id="sort-container">
+            
+            <div class="button-group">
+              <label for="size"># of elements</label>
+              <input
+                  type="number"
+                  id="size"
+                  min="1"
+                  max="10000"
+                  step="1"
+                  value="20"
+              />
+            </div>
+            
+            <div class="button-group">
+              <button id="randomize-array-button">Shuffle Array</button>
+            </div>
 
+            <div class="button-group">
+              <button id="start-button">Start</button>
+            </div>
+
+            <div class="button-group">
+              <button id="stop-button">Stop</button>
+            </div>
+
+            <div class="button-group">
+              <button id="sound-toggle" data-value="1">Sound <span style="color:green" class="dynamic-text">On!</span></button>
+            </div>
+
+
+          </div>
+          <div id="sort-container">
+
+          </div>
         </section>
     </div>
   </body>

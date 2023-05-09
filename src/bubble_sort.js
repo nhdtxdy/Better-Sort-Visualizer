@@ -11,7 +11,7 @@ async function bubbleSort(array) {
     }
 }
 
-sort_btn.addEventListener("click", async function () {
+startButton.addEventListener("click", async function () {
     running = true;
     await bubbleSort(unsorted_array);
     batChest();

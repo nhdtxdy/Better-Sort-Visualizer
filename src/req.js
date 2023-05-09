@@ -9,22 +9,27 @@ const BLUE = "bar-blue";
 const GREEN = "bar-green";
 
 const NOTE_DURATION = 50;
-const FREQ_MIN = 100;
+const FREQ_MIN = 200;
 const FREQ_MAX = 500;
-const VOLUME = 0.005;
+const VOLUME = 0.003;
+const MAX_SPEED = 5;
+const MIN_SPEED = 500;
 const audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+let soundEnabled = true;
 
-const randomize_array = document.getElementById("randomize_array_btn");
-const sort_btn = document.getElementById("sort_btn");
-const stop = document.getElementById("stop");
+const randomizeArrayButton = document.getElementById("randomize-array-button");
+const startButton = document.getElementById("start-button");
+const stopButton = document.getElementById("stop-button");
+stopButton.disabled = true;
+const soundToggle = document.getElementById("sound-toggle");
 
 let bars_container = document.getElementById("sort-container");
 let speed = document.getElementById("speed");
-let slider = document.getElementById("slider");
+let sampleSize = document.getElementById("size");
 
 let minRange = 1;
-let maxRange = slider.value;
-let numOfBars = slider.value;
+let maxRange = sampleSize.value;
+let numOfBars = sampleSize.value;
 let heightFactor = 100/numOfBars;
 
 let bars = [];
@@ -34,31 +39,64 @@ let speedFactor = 100;
 let unsorted_array = new Array(numOfBars);
 
 
-slider.addEventListener("input", function () {
+sampleSize.addEventListener("input", (event) => {
     running = false;
-    numOfBars = slider.value;
+    stopButton.click();
+    numOfBars = event.target.value;
     heightFactor = 100/numOfBars;
-    maxRange = slider.value;
+    maxRange = numOfBars;
     //console.log(numOfBars);
     bars_container.innerHTML = "";
-    unsorted_array = createRandomArray();
+    unsorted_array = createRandomArray(false);
     renderBars(unsorted_array);
 });
 
-speed.addEventListener("change", (e) => {
-    speedFactor = parseInt(e.target.value);
+speed.addEventListener("input", (event) => {
+    speedFactor = (parseInt(event.target.value))/100*(MAX_SPEED-MIN_SPEED)+MIN_SPEED;
+});
+
+soundToggle.addEventListener('click', () => {
+    let soundValue = soundToggle.dataset.value;
+    if (soundValue === "1") {
+        soundValue = "0";
+        let dynamicText = soundToggle.querySelector('.dynamic-text');
+        dynamicText.animate({
+            opacity: 0,
+        }, { duration: 500, fill: "forwards" }).onfinish = () => {
+            dynamicText.style.color = 'red';
+            dynamicText.textContent = "Off!";
+            dynamicText.animate({
+                opacity: 1,
+            }, { duration: 500, fill: "forwards" });
+        };
+    }
+    else {
+        soundValue = "1";
+        let dynamicText = soundToggle.querySelector('.dynamic-text');
+        dynamicText.animate({
+            opacity: 0,
+        }, { duration: 500, fill: "forwards" }).onfinish = () => {
+            dynamicText.style.color = 'green';
+            dynamicText.textContent = "On!";
+            dynamicText.animate({
+                opacity: 1,
+            }, { duration: 500, fill: "forwards" });
+        };
+    }
+    soundToggle.dataset.value = soundValue;
+    soundEnabled = (soundValue === "1") ? true : false;
 });
 
 function randomNum(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function createRandomArray() {
+function createRandomArray(shuffle = true) {
     let array = new Array(numOfBars);
     for (let i = 0; i < numOfBars; i++) {
         array[i] = i + 1;
     }
-
+    if (!shuffle) return array;
     for (let i = array.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [array[i], array[j]] = [array[j], array[i]];
@@ -67,7 +105,7 @@ function createRandomArray() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    unsorted_array = createRandomArray();
+    unsorted_array = createRandomArray(false);
     renderBars(unsorted_array);
 });
 
@@ -78,16 +116,41 @@ function renderBars(array) {
     bar.classList.add("bar");
     bar.style.left = `${i*heightFactor}%`;
     bar.style.width = `${heightFactor}%`;
-    bar.style.height = `${array[i]*heightFactor}%`;
+    bar.animate([
+        {
+            height: '0%',
+        },
+        {
+            height: `${array[i]*heightFactor}%`,
+        }
+    ], { duration: 700, fill: "forwards", easing: "ease-in-out"});
     bars_container.appendChild(bar);
     bars.push(bar);
   }
 }
 
-randomize_array.addEventListener("click", function () {
-  unsorted_array = createRandomArray();
-  bars_container.innerHTML = "";
-  renderBars(unsorted_array);
+randomizeArrayButton.addEventListener("click", async function () {
+    if (bars && numOfBars <= 9999) {
+        console.log('lmao');
+        for (let i = 0; i < bars.length; i++) {
+            bars[i].animate([
+                {
+                    height: `${unsorted_array[i]*heightFactor}%`,
+                },
+                {
+                    height: '0%',
+                }
+            ], { duration: 700, fill: "forwards", easing: "ease-in-out"});
+        }
+        await sleep(700);
+        unsorted_array = createRandomArray();
+        bars_container.innerHTML = "";
+        renderBars(unsorted_array);;
+        return;
+    }
+    unsorted_array = createRandomArray();
+    bars_container.innerHTML = "";
+    renderBars(unsorted_array);
 });
 
 function sleep(ms) {
@@ -124,7 +187,7 @@ function playNote(frequency, duration) {
 
 async function swap(i, j) {
     let freq = Math.floor(( (unsorted_array[i] + unsorted_array[j]) * heightFactor / 200) * (FREQ_MAX - FREQ_MIN) + FREQ_MIN);
-    playNote(freq, NOTE_DURATION);
+    if (soundEnabled) playNote(freq, NOTE_DURATION);
     if (!running) return;
     changeColor(i, RED);
     [bars[i].style.left, bars[j].style.left] = [bars[j].style.left, bars[i].style.left];
@@ -140,14 +203,15 @@ async function batChest() {
     for (let i = 0; i < numOfBars; i++) {
         let freq = Math.floor((unsorted_array[i] * heightFactor / 100) * (FREQ_MAX - FREQ_MIN) + FREQ_MIN);
         changeColor(i, GREEN);
-        playNote(freq, NOTE_DURATION);
-        await sleep(speedFactor);
+        if (soundEnabled) playNote(freq, NOTE_DURATION);
+        await sleep(2000/numOfBars);
     }
     for (let i = 0; i < numOfBars; i++) {
         resetColor(i);
-        await sleep(speedFactor/5);
+        await sleep(500/numOfBars);
     }
     running = false;
+    stopButton.click();
 }
 
 function isSorted() {
@@ -157,6 +221,15 @@ function isSorted() {
     return true;
 }
 
-stop.addEventListener('click', () => {
+stopButton.addEventListener('click', () => {
     running = false;
+    stopButton.disabled = true;
+    randomizeArrayButton.disabled = false;
+    startButton.disabled = false;
+});
+
+startButton.addEventListener('click', () => {
+    stopButton.disabled = false;
+    startButton.disabled = true; 
+    randomizeArrayButton.disabled = true;
 });

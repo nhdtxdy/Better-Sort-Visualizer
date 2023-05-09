@@ -137,7 +137,6 @@ section {
     font-size: .5em;
 }
 
-
 .overlay:hover {
     opacity: 1;
     transition: opacity 1s;

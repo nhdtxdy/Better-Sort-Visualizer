@@ -1,3 +1,5 @@
+'use strict';
+
 async function insertionSort(elements) {
     for (let i = 1; i < elements.length; i++) {
         if (!running) return;

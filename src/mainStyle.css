@@ -25,10 +25,6 @@
     /* transition: transform 1s ease; */
 }
 
-.allow-scrolling {
-    overflow-y: scroll;
-}
-
 section {
     height: 100vh;
     display: flex;
@@ -111,7 +107,7 @@ section {
     transform: translate(0%, -50%); 
     overflow-y: hidden;
     user-select: none; /* -- Prevent image highlighting -- */
-    animation-play-state: paused;
+    /* animation-play-state: paused; */
     /* transition: transform 1s ease; */
 }
 

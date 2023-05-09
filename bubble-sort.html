@@ -1,58 +1,43 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
-<head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="src/smallStyle.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="src/smallStyle.css" />
     <script src="src/smallScript.js" defer></script>
-    <title></title>
-</head>
+    <title>Sorting Visualizer</title>
+  </head>
+  <body>
+    <div class="container">
+        <div class="buttons_container">
+          <input
+            type="range"
+            id="slider"
+            min="10"
+            max="1000"
+            step="5"
+            value="100"
+          />
+  
+          <select name="" id="speed">
+            <option value="100">Slow</option>
+            <option value="50">Medium</option>
+            <option value="10">Fast</option>
+          </select>
+          <select name="" id="algo">
+            <option value="bubble">Bubble Sort</option>
+            <option value="insertion">Insertion Sort</option>
+            <option value="heap">Heap Sort</option>
+            <option value="merge">Merge Sort</option>
+            <option value="quick">Quick Sort</option>
+          </select>
+          <button id="randomize_array_btn">Randomize Array</button>
+          <button id="sort_btn">Sort</button>
+        </div>
+        <div id="sort-container">
 
-<body>
-    <div class="container" id="main-page">
-        <section id="intro" class="active reveal">
-            <h1 class="fancy" id="main-text" data-value="Sorting_Visualizer">Click for surprise</h1>
-            <p class="align-bottom" id="scroll-down">scroll down</p>
-        </section>
-        <section id="gallery" class="reveal">
-            <div id="main-gallery" class="image-track" data-mouse-down-at="0" data-prev-percentage="0">
-                <div class="image-container">
-                    <div class="side-content">
-                        <h1 class="description">Click 'em</h1>
-                        <p class="additional-text">To visualize</p>
-                    </div>
-                </div>
-                <div class="image-container">
-                    <img class="image" src="static/bubble.png" draggable="false" />
-                    <a class="overlay" id="bubble-sort" href="bubble-sort.html">
-                        <h4 class="fancy">Bubble Sort</h4>
-                        <p class="description" data-value="Bubble sort is a simple sorting algorithm that repeatedly steps through a list, compares adjacent elements and swaps them if they are in the wrong order. It is one of the most basic sorting algorithms and is easy to understand, but is inefficient for large lists. Bubble sort was first described in 1956 by computer scientist John von Neumann."></p>
-                    </a>
-                </div>
-                <div class="image-container">
-                    <img class="image" src="https://images.unsplash.com/photo-1610194352361-4c81a6a8967e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80" draggable="false" />
-                    <div class="overlay" id="selection-sort">
-                        <h4 class="fancy">Selection Sort</h4>
-                        <p class="description" data-value="Selection sort is a simple sorting algorithm that works by repeatedly finding the minimum element from the unsorted part of an array and putting it at the beginning. This process is repeated until the entire array is sorted. It has a simple implementation and can be used on small lists. However, it is not very efficient for large lists and can be outperformed by more advanced sorting algorithms."></p>
-                    </div>
-                </div>
-                <div class="image-container">
-                    <img class="image" src="https://images.unsplash.com/photo-1618202133208-2907bebba9e1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" draggable="false" />
-                    <div class="overlay" id="insertion-sort">
-                        <h4 class="fancy">Insertion sort</h4>
-                        <p class="description" data-value="Insertion sort is a simple sorting algorithm that works by building a final sorted array one item at a time. It was first proposed by John Mauchly in 1946. The idea behind Insertion sort is quite simple: it iterates through an array, comparing each element to its adjacent elements and inserting it into the correct position in the sorted portion of the array. This process is repeated until the entire array is sorted."></p>
-                    </div>
-                </div>
-                <!-- <img class="image" src="https://images.unsplash.com/photo-1495805442109-bf1cf975750b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" draggable="false" />
-                <img class="image" src="https://images.unsplash.com/photo-1548021682-1720ed403a5b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" draggable="false" />
-                <img class="image" src="https://images.unsplash.com/photo-1496753480864-3e588e0269b3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2134&q=80" draggable="false" />
-                <img class="image" src="https://images.unsplash.com/photo-1613346945084-35cccc812dd5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1759&q=80" draggable="false" />
-                <img class="image" src="https://images.unsplash.com/photo-1516681100942-77d8e7f9dd97?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80" draggable="false" /> -->
-            </div>
-        </section>
+        </div>
     </div>
-</body>
-
+  </body>
 </html>

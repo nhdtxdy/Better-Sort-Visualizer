@@ -111,6 +111,8 @@ section {
     transform: translate(0%, -50%); 
     overflow-y: hidden;
     user-select: none; /* -- Prevent image highlighting -- */
+    animation-play-state: paused;
+    /* transition: transform 1s ease; */
 }
 
 .overlay {
@@ -146,6 +148,7 @@ section {
     height: 100%;
     object-fit: cover;
     object-position: 100% center;
+    /* transition: transform 1s ease; */
 }
 
 .image-container {
@@ -187,7 +190,7 @@ section {
 
 .additional-text {
     color: white;
-    opacity: 0.1;
+    opacity: 0;
     transition: opacity 1s ease;
 }
 

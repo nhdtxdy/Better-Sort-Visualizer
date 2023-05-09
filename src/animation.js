@@ -105,26 +105,28 @@ const handleOnUp = () => {
 }
 
 const handleOnMove = e => {
-  if(track.dataset.mouseDownAt === "0") return;
-  
-  const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
-        maxDelta = window.innerWidth / 2;
-  
-  const percentage = (mouseDelta / maxDelta) * -100,
-        nextPercentageUnconstrained = parseFloat(track.dataset.prevPercentage) + percentage,
-        nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100);
-  
-  track.dataset.percentage = nextPercentage;
-  
-  track.animate({
-    transform: `translate(${nextPercentage}%, -50%)`
-  }, { duration: 1100, fill: "forwards" });
-  
-  for(const image of track.getElementsByClassName("image")) {
-    image.animate({
-      objectPosition: `${100 + nextPercentage}% center`
+    if(track.dataset.mouseDownAt === "0") return;
+    
+    const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
+            maxDelta = window.innerWidth / 2;
+    
+    const percentage = (mouseDelta / maxDelta) * -100,
+            nextPercentageUnconstrained = parseFloat(track.dataset.prevPercentage) + percentage,
+            nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100);
+    
+    track.dataset.percentage = nextPercentage;
+
+    track.style.transform = `translate(${nextPercentage}%, -50%)`;
+    track.animate({
+        transform: `translate(${nextPercentage}%, -50%)`
     }, { duration: 1100, fill: "forwards" });
-  }
+
+    for(const image of track.getElementsByClassName("image")) {
+        // image.style.objectPosition = `${100 + nextPercentage}% center`;
+        image.animate({
+        objectPosition: `${100 + nextPercentage}% center`
+        }, { duration: 1100, fill: "forwards" });
+    }
 }
 
 let fancyElts = document.querySelectorAll('.fancy');
@@ -182,16 +184,19 @@ function letOverlayFinish(event, index) {
     clearInterval(intervals[index]);
 }
 
+
+const gallery = document.querySelector("#gallery");
+
 /* -- Had to add extra lines for touch events -- */
 
-window.onmousedown = e => handleOnDown(e);
+gallery.onmousedown = e => handleOnDown(e);
 
-window.ontouchstart = e => handleOnDown(e.touches[0]);
+gallery.ontouchstart = e => handleOnDown(e.touches[0]);
 
-window.onmouseup = e => handleOnUp(e);
+gallery.onmouseup = e => handleOnUp(e);
 
-window.ontouchend = e => handleOnUp(e.touches[0]);
+gallery.ontouchend = e => handleOnUp(e.touches[0]);
 
-window.onmousemove = e => handleOnMove(e);
+gallery.onmousemove = e => handleOnMove(e);
 
-window.ontouchmove = e => handleOnMove(e.touches[0]);
+gallery.ontouchmove = e => handleOnMove(e.touches[0]);

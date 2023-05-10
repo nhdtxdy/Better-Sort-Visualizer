@@ -1,3 +1,5 @@
+'use strict';
+
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const main_text = document.getElementById("main-text-content");
 const intro = document.getElementById("intro");
@@ -35,6 +37,15 @@ for (const homeButton of homeButtons) {
     homeButton.addEventListener("click", () => {
         document.querySelector('#main-page').classList.remove('in');
         document.querySelector("#main-page").classList.add("out");
-        setTimeout(() => {window.location.href = 'index.html';}, 500);
+        setTimeout(() => {window.location.href = '../index.html';}, 500);
     });  
+}
+
+const compares = document.getElementsByClassName("compare");
+for (const compare of compares) {
+    compare.addEventListener('click', () => {
+        document.querySelector('#main-page').classList.remove('in');
+        document.querySelector("#main-page").classList.add("out");
+        setTimeout(() => {window.location.href = 'compare.html';}, 500);
+    });
 }

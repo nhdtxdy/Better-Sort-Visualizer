@@ -11,8 +11,24 @@ async function bubbleSort(array) {
     }
 }
 
-startButton.addEventListener("click", async function () {
-    running = true;
-    await bubbleSort(unsorted_array);
-    batChest();
-});
+async function bubbleSortLeft(array) {
+    for (let i = 1; i < array.length; i++) {
+        for (let j = 0; j < array.length-i; j++) {
+            if (!runningLeft) return;
+            if (compareLeft(j, j+1)) {
+                await swapLeft(j, j+1);
+            }
+        }
+    }
+}
+
+async function bubbleSortRight(array) {
+    for (let i = 1; i < array.length; i++) {
+        for (let j = 0; j < array.length-i; j++) {
+            if (!runningRight) return;
+            if (compareRight(j, j+1)) {
+                await swapRight(j, j+1);
+            }
+        }
+    }
+}

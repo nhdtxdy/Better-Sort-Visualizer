@@ -16,10 +16,11 @@ let soundEnabled = true;
 const randomizeArrayButton = document.getElementById("randomize-array-button");
 const startButton = document.getElementById("start-button");
 const stopButton = document.getElementById("stop-button");
+const buttonContainer = document.querySelector('.button-container');
 stopButton.disabled = true;
 const soundToggle = document.getElementById("sound-toggle");
 
-let bars_container = document.getElementById("sort-container");
+let barsContainer = document.getElementById("sort-container");
 let speed = document.getElementById("speed");
 let sampleSize = document.getElementById("size");
 
@@ -41,14 +42,12 @@ sampleSize.addEventListener("input", (event) => {
     numOfBars = event.target.value;
     heightFactor = 100/numOfBars;
     maxRange = numOfBars;
-    //console.log(numOfBars);
-    bars_container.innerHTML = "";
+    barsContainer.innerHTML = "";
     unsorted_array = createRandomArray(false);
     renderBars(unsorted_array);
 });
 
 speed.addEventListener("input", (event) => {
-    console.log(event.target.value);
     if (!event.target.value) return;
     speedFactor = (parseInt(event.target.value))/100*(MAX_SPEED-MIN_SPEED)+MIN_SPEED;
 });
@@ -115,8 +114,11 @@ function renderBars(array) {
   for (let i = 0; i < numOfBars; i++) {
     let bar = document.createElement("div");
     bar.classList.add("bar");
+    barsContainer.appendChild(bar);
+
     bar.style.left = `${i*heightFactor}%`;
     bar.style.width = `${heightFactor}%`;
+
     bar.animate([
         {
             height: '0%',
@@ -124,33 +126,29 @@ function renderBars(array) {
         {
             height: `${array[i]*heightFactor}%`,
         }
-    ], { duration: 700, fill: "forwards", easing: "ease-in-out"});
-    bars_container.appendChild(bar);
+    ], { duration: 700, fill: "none", easing: "ease-in-out"});
+
+    bar.style.height = `${array[i]*heightFactor}%`;
+
     bars.push(bar);
   }
 }
 
 randomizeArrayButton.addEventListener("click", async function () {
-    if (bars && numOfBars <= 2000) {
-        console.log('lmao');
-        for (let i = 0; i < bars.length; i++) {
-            bars[i].animate([
-                {
-                    height: `${unsorted_array[i]*heightFactor}%`,
-                },
-                {
-                    height: '0%',
-                }
-            ], { duration: 700, fill: "forwards", easing: "ease-in-out"});
-        }
-        await sleep(700);
-        unsorted_array = createRandomArray();
-        bars_container.innerHTML = "";
-        renderBars(unsorted_array);;
-        return;
+    for (let i = 0; i < bars.length; i++) {
+        bars[i].animate([
+            {
+                height: `${unsorted_array[i]*heightFactor}%`,
+            },
+            {
+                height: '0%',
+            }
+        ], { duration: 700, fill: "none", easing: "ease-in-out"});
+        bars[i].style.height = '0%';
     }
+    await sleep(700);
     unsorted_array = createRandomArray();
-    bars_container.innerHTML = "";
+    barsContainer.innerHTML = "";
     renderBars(unsorted_array);
 });
 
@@ -169,7 +167,7 @@ function resetColor(i) {
 }
 
 function compare(x, y) {
-    return unsorted_array[x] >= unsorted_array[y];
+    return getValue(x) >= getValue(y);
 }
 
 function playNote(frequency, duration) {
@@ -192,7 +190,6 @@ async function swap(i, j) {
     if (!running) return;
     changeColor(i, RED);
     [bars[i].style.left, bars[j].style.left] = [bars[j].style.left, bars[i].style.left];
-    // console.log(bars[i], bars[j]);
     [unsorted_array[i], unsorted_array[j]] = [unsorted_array[j], unsorted_array[i]];
     [bars[i], bars[j]] = [bars[j], bars[i]];
     await sleep(speedFactor);
@@ -202,14 +199,20 @@ async function swap(i, j) {
 async function batChest() {
     if (!isSorted() || !running) return;
     for (let i = 0; i < numOfBars; i++) {
+        if (!running) {
+            for (let j = 0; j < numOfBars; j++) resetColor(j);
+            return;
+        }
         let freq = Math.floor((unsorted_array[i] * heightFactor / 100) * (FREQ_MAX - FREQ_MIN) + FREQ_MIN);
         changeColor(i, GREEN);
         if (soundEnabled) playNote(freq, NOTE_DURATION);
-        await sleep(2000/numOfBars);
+        await sleep(1000/numOfBars);
     }
     for (let i = 0; i < numOfBars; i++) {
         resetColor(i);
     }
+    // for (const button of allButtons)
+    //     button.disabled = false;
     running = false;
     stopButton.click();
 }
@@ -219,6 +222,14 @@ function isSorted() {
         if (!compare(i, i-1)) return false;
     }
     return true;
+}
+
+function getValue(i) {
+    return typeof i === "object" ? parseFloat(i.style.height.slice(0, -1)) : parseFloat(bars[i].style.height.slice(0, -1));
+}
+
+function calculateFreq(i) {
+    return getValue(i) / 100 * (FREQ_MAX - FREQ_MIN) + FREQ_MIN;
 }
 
 stopButton.addEventListener('click', () => {
@@ -232,4 +243,32 @@ startButton.addEventListener('click', () => {
     stopButton.disabled = false;
     startButton.disabled = true; 
     randomizeArrayButton.disabled = true;
+});
+
+startButton.addEventListener("click", async function () {
+    running = true;
+    switch (document.title) {
+        case "Bubble Sort":
+            await bubbleSort(bars);
+            break;
+        case "Insertion Sort":
+            await insertionSort(bars);
+            break;
+        case "Selection Sort":
+            await selectionSort(bars);
+            break;
+        case "Quick Sort":
+            await quickSort(0, bars.length-1);
+            break;
+        case "Heap Sort":
+            await heapSort(bars);
+            break;
+        case "Merge Sort":
+            await mergeSort(bars, 0, bars.length);
+            break;
+        case "Radix Sort":
+            await radixBucketSort(bars);
+            break;
+    } 
+    batChest();
 });

@@ -32,7 +32,7 @@ async function quickSort(left, right) {
     }
 }
 
-sort_btn.addEventListener("click", async function () {
+startButton.addEventListener("click", async function () {
     running = true;
     await quickSort(0, bars.length - 1);
     batChest();

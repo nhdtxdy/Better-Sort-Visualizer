@@ -2,7 +2,12 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: monospace;
 }
+
+/* body {
+    background: black;
+} */
 
 .container {
     /* scroll-snap-type: y mandatory; */
@@ -10,19 +15,21 @@
     overflow-y: hidden;
     height: 100vh;
     font-family: monospace;
-    transform: translateY(0);
+    transform: translateY(100%);
     transition: transform 0.5s ease;
+    /* background: black;
+    background-size: 1000%; */
     /* background: black; */
 }
 
 .container.out {
     transform: translateY(-100%);
-    /* transition: transform 1s ease; */
+    transition: transform 0.5s ease;
 }
 
 .container.in {
     transform: translateY(0);
-    /* transition: transform 1s ease; */
+    transition: transform 0.5s ease;
 }
 
 .allow-scrolling {

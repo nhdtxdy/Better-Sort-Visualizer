@@ -8,26 +8,66 @@
     <script src="src/script.js" defer></script>
     <script src="src/req.js" defer></script>
     <script src="src/bubble_sort.js" defer></script>
+    <script src="src/smallAnimation.js" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/styles/github-dark.min.css"/>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"></script>
     <title>Sorting Visualizer</title>
   </head>
   <body>
-    <div class="container">
+    <div class="container" id="main-page">
         <section id="intro">
-          
+            <div id="main-text">
+              <span id="main-text-content" data-value="BUBBLE SORT">XXXXXXXXXXX</span>
+              <div class="home-button">
+                <div class="button-group">
+                  <button class="go-home">Home</button>
+                </div>
+              </div>
+            </div>
+            <div class="text-wrapper">
+              <div class="description-text">
+                <p style="color:lightgray;opacity:0.8">(scroll down to visualize)</p>
+                <br>
+                <div>
+                  <p>The bubble sort algorithm is a simple sorting algorithm that works by repeatedly swapping adjacent elements if they are in the wrong order.</p>
+                  <br>
+                  <h3>Steps</h3>
+                  <p>1. Compare the first and second elements of the list. If the first element is greater than the second element, swap them.</p>
+                  <p>2. Move to the next pair of adjacent elements and repeat step 1, until the end of the list is reached.</p>
+                  <p>3. If a swap was made in step 1 or 2, go back to step 1 and start again. Otherwise, the list is sorted and the algorithm terminates.</p>
+                  <br>
+                  <p>The time complexity of bubble sort algorithm is O(n^2), which means it becomes inefficient for large lists.</p>
+                  <p>Despite its simplicity, the bubble sort algorithm is not commonly used in practice due to its poor performance, except for educational purposes.</p> 
+                </div>                
+              </div>
+            </div>
+            <div class="code-sample">
+              <pre><code class="language-javascript">
+function bubbleSort(arr) {
+  for(var i = 0; i < arr.length; i++) {
+      for(var j = 0; j < ( arr.length - i -1 ); j++) {
+          if(arr[j] > arr[j+1]) {
+            var temp = arr[j]
+            arr[j] = arr[j + 1]
+            arr[j+1] = temp
+          }
+      }
+  }
+}
+              </code></pre>
+            </div>            
         </section>
-        
         <section id="main" class="reveal">
           <div class="button-container">
             <div class="button-group">
-              <label for="speed">Animation speed</label>
+              <label for="speed">Speed (%)</label>
               <input
-                type="range"
+                type="number"
                 id="speed"
                 min="1"
-                max="100"
+                max="999"
                 step="1"
-                value="20"
-                class="slider"
+                value="40"
             />
             </div>
             
@@ -57,6 +97,10 @@
 
             <div class="button-group">
               <button id="sound-toggle" data-value="1">Sound <span style="color:green" class="dynamic-text">On!</span></button>
+            </div>
+
+            <div class="button-group">
+              <button class="go-home">Go Home</button>
             </div>
 
 

@@ -136,8 +136,9 @@ for (const fancy of fancyElts) {
 }
 
 function scrollToPage(pageName) {
+    document.querySelector('#main-page').classList.remove('in');
     document.querySelector('#main-page').classList.add('out');
-    setTimeout(() => {window.location.href = pageName;}, 1000);
+    setTimeout(() => {window.location.href = pageName;}, 500);
 }
 
 // Add exploding effect to overlays

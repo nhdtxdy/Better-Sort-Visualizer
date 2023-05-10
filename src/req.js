@@ -1,9 +1,5 @@
 'use strict';
 
-window.addEventListener('load', function() {
-    document.querySelector('.container').classList.add('in');
-});
-
 const RED = "bar-red";
 const BLUE = "bar-blue";
 const GREEN = "bar-green";
@@ -35,7 +31,7 @@ let heightFactor = 100/numOfBars;
 let bars = [];
 let running = false;
 
-let speedFactor = 100;
+let speedFactor = (parseInt(sampleSize.value))/100*(MAX_SPEED-MIN_SPEED)+MIN_SPEED;
 let unsorted_array = new Array(numOfBars);
 
 
@@ -52,6 +48,8 @@ sampleSize.addEventListener("input", (event) => {
 });
 
 speed.addEventListener("input", (event) => {
+    console.log(event.target.value);
+    if (!event.target.value) return;
     speedFactor = (parseInt(event.target.value))/100*(MAX_SPEED-MIN_SPEED)+MIN_SPEED;
 });
 
@@ -105,6 +103,9 @@ function createRandomArray(shuffle = true) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightElement(block);
+    });
     unsorted_array = createRandomArray(false);
     renderBars(unsorted_array);
 });
@@ -130,7 +131,7 @@ function renderBars(array) {
 }
 
 randomizeArrayButton.addEventListener("click", async function () {
-    if (bars && numOfBars <= 9999) {
+    if (bars && numOfBars <= 2000) {
         console.log('lmao');
         for (let i = 0; i < bars.length; i++) {
             bars[i].animate([
@@ -199,7 +200,7 @@ async function swap(i, j) {
 }
 
 async function batChest() {
-    if (!isSorted()) return;
+    if (!isSorted() || !running) return;
     for (let i = 0; i < numOfBars; i++) {
         let freq = Math.floor((unsorted_array[i] * heightFactor / 100) * (FREQ_MAX - FREQ_MIN) + FREQ_MIN);
         changeColor(i, GREEN);
@@ -208,7 +209,6 @@ async function batChest() {
     }
     for (let i = 0; i < numOfBars; i++) {
         resetColor(i);
-        await sleep(500/numOfBars);
     }
     running = false;
     stopButton.click();

@@ -1,5 +1,3 @@
-'use strict';
-
 const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 const main_text = document.getElementById("main-text-content");
 const intro = document.getElementById("intro");

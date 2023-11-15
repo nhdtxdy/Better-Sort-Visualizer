@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../src/smallStyle.css" />
+    <script src="../src/script.js" defer></script>
+    <script src="../src/req.js" defer></script>
+    <script src="../src/quick_sort.js" defer></script>
+    <script src="../src/smallAnimation.js" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/styles/github-dark.min.css"/>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"></script>
+    <title>Quick Sort</title>
+  </head>
+  <body>
+    <div class="container" id="main-page">
+        <section id="intro">
+            <div id="main-text">
+              <span id="main-text-content" data-value="QUICK SORT">XXXXXXXXXX</span>
+              <div class="home-button">
+                <div class="button-group">
+                  <button class="go-home">Home</button>
+                </div>
+                <div class="button-group">
+                  <button class="compare">Compare</button>
+                </div>
+              </div>
+            </div>
+            <div class="text-wrapper">
+              <div class="description-text">
+                <p style="color:lightgray;opacity:0.8">(scroll down to visualize)</p>
+                <br>
+                <div>
+                  <p>Quick sort is a popular sorting algorithm that uses a divide-and-conquer approach to sort an array or list. It works by selecting a pivot element from the array and partitioning the other elements into two sub-arrays, according to whether they are less than or greater than the pivot. The sub-arrays are then sorted recursively using the same method, until the entire array is sorted.</p>
+                  <br>
+                  <div class="steps">
+                    <h3>Steps:</h3>
+                      <p>1. Choose an element from the array to be the pivot. This can be done randomly or by selecting the first or last element of the array.</p>
+                      <p>2. Reorder the array so that all elements with values less than the pivot come before the pivot, and all elements with values greater than the pivot come after it. After this partitioning, the pivot is in its final position.</p>
+                      <p>3. Recursively apply the above steps to the sub-array of elements with smaller values and separately to the sub-array of elements with greater values.</p>
+                  </div>
+                  <br>
+                  <p>Quick sort has an average time complexity of O(n log n), making it one of the fastest sorting algorithms available. However, it also has a worst-case time complexity of O(n^2) in cases where the pivot is selected poorly, making it less suitable for large datasets with many duplicates or already partially sorted elements.</p>
+                </div>                
+              </div>
+            </div>
+            <div class="code-sample">
+              <pre><code class="language-python">
+def partition(array, start, end):
+    pivot = array[start]
+    low = start + 1
+    high = end
+
+    while True:
+        while low <= high and array[high] >= pivot:
+            high = high - 1
+
+        while low <= high and array[low] <= pivot:
+            low = low + 1
+
+        if low <= high:
+            array[low], array[high] = array[high], array[low]
+        else:
+            break
+
+    array[start], array[high] = array[high], array[start]
+
+    return high
+
+def quick_sort(array, start, end):
+    if start >= end:
+        return
+
+    p = partition(array, start, end)
+    quick_sort(array, start, p-1)
+    quick_sort(array, p+1, end)
+              </code></pre>
+            </div>            
+        </section>
+        <section id="main" class="reveal">
+          <div class="button-container">
+            <div class="button-group">
+              <label for="speed">Speed (%)</label>
+              <input
+                type="number"
+                id="speed"
+                min="1"
+                max="999"
+                step="1"
+                value="40"
+            />
+            </div>
+            
+            <div class="button-group">
+              <label for="size"># of elements</label>
+              <input
+                  type="number"
+                  id="size"
+                  min="1"
+                  max="10000"
+                  step="1"
+                  value="20"
+              />
+            </div>
+            
+            <div class="button-group">
+              <button id="randomize-array-button">Shuffle Array</button>
+            </div>
+
+            <div class="button-group">
+              <button id="start-button">Start</button>
+            </div>
+
+            <div class="button-group">
+              <button id="stop-button">Stop</button>
+            </div>
+
+            <div class="button-group">
+              <button id="sound-toggle" data-value="1">Sound <span style="color:green" class="dynamic-text">On!</span></button>
+            </div>
+
+            <div class="button-group">
+              <button class="go-home">Go Home</button>
+            </div>
+
+            <div class="button-group">
+              <button class="compare">Compare</button>
+            </div>
+
+          </div>
+          <div id="sort-container">
+
+          </div>
+        </section>
+    </div>
+  </body>
+</html>

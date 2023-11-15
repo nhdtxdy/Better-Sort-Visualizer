@@ -2,6 +2,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: monospace;
+}
+
+body {
+    font-size: 50px;
 }
 
 .container {
@@ -10,19 +15,21 @@
     overflow-y: hidden;
     height: 100vh;
     font-family: monospace;
-    transform: translateY(0);
+    transform: translateY(100%);
     transition: transform 0.5s ease;
+    /* background: black;
+    background-size: 1000%; */
     /* background: black; */
 }
 
 .container.out {
     transform: translateY(-100%);
-    /* transition: transform 1s ease; */
+    transition: transform 0.5s ease;
 }
 
 .container.in {
     transform: translateY(0);
-    /* transition: transform 1s ease; */
+    transition: transform 0.5s ease;
 }
 
 .allow-scrolling {
@@ -58,6 +65,7 @@ section {
 
 #main-text {
     text-transform: uppercase;
+    /* font-size: 6em; */
 }
 
 .align-bottom {
@@ -136,7 +144,6 @@ section {
     text-align: left;
     font-size: .5em;
 }
-
 
 .overlay:hover {
     opacity: 1;

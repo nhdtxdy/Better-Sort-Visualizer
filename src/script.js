@@ -1,12 +1,10 @@
 const pages = document.querySelectorAll("section");
-const mainPage = document.querySelector("#main-page");
-const mainGallery = document.querySelector("#main-gallery");
-
+const mainPage = document.querySelector(".container");
 mainPage.addEventListener('scroll', reveal);
 
 function reveal() {
     let scrollDownText = document.querySelector('#scroll-down');
-    scrollDownText.style.display = "none";
+    if (scrollDownText) scrollDownText.style.display = "none";
     let reveals = document.querySelectorAll(".reveal");
 
     for (let i = 0; i < reveals.length; i++) {
@@ -21,3 +19,7 @@ function reveal() {
         }
     }
 }
+
+window.addEventListener('load', function() {
+    document.querySelector('.container').classList.add('in');
+});

@@ -136,8 +136,9 @@ for (const fancy of fancyElts) {
 }
 
 function scrollToPage(pageName) {
+    document.querySelector('#main-page').classList.remove('in');
     document.querySelector('#main-page').classList.add('out');
-    setTimeout(() => {window.location.href = pageName;}, 1000);
+    setTimeout(() => {window.location.href = 'pages/' + pageName;}, 500);
 }
 
 // Add exploding effect to overlays
@@ -187,16 +188,9 @@ function letOverlayFinish(event, index) {
 
 const gallery = document.querySelector("#gallery");
 
-/* -- Had to add extra lines for touch events -- */
-
-gallery.onmousedown = e => handleOnDown(e);
-
-gallery.ontouchstart = e => handleOnDown(e.touches[0]);
-
-gallery.onmouseup = e => handleOnUp(e);
-
-gallery.ontouchend = e => handleOnUp(e.touches[0]);
-
-gallery.onmousemove = e => handleOnMove(e);
-
-gallery.ontouchmove = e => handleOnMove(e.touches[0]);
+gallery.addEventListener('mousedown', (event) => {handleOnDown(event);});
+gallery.addEventListener('touchstart', (event) => {handleOnDown(event.touches[0]);});
+gallery.addEventListener('mouseup', (event) => {handleOnUp(event);});
+gallery.addEventListener('touchend', (event) => {handleOnUp(event.touches[0]);});
+gallery.addEventListener('mousemove', (event) => {handleOnMove(event);});
+gallery.addEventListener('touchmove', (event) => {handleOnMove(event.touches[0]);});

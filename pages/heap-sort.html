@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../src/smallStyle.css" />
+    <script src="../src/script.js" defer></script>
+    <script src="../src/req.js" defer></script>
+    <script src="../src/heap_sort.js" defer></script>
+    <script src="../src/smallAnimation.js" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/styles/github-dark.min.css"/>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"></script>
+    <title>Heap Sort</title>
+  </head>
+  <body>
+    <div class="container" id="main-page">
+        <section id="intro">
+            <div id="main-text">
+              <span id="main-text-content" data-value="HEAP SORT">XXXXXXXXX</span>
+              <div class="home-button">
+                <div class="button-group">
+                  <button class="go-home">Home</button>
+                </div>
+                <div class="button-group">
+                  <button class="compare">Compare</button>
+                </div>
+              </div>
+            </div>
+            <div class="text-wrapper">
+              <div class="description-text">
+                <p style="color:lightgray;opacity:0.8">(scroll down to visualize)</p>
+                <br>
+                <div>
+                    <p>
+                        Heap sort is a comparison-based sorting algorithm that uses a binary heap data structure to sort elements. It was first proposed by J.W.J. Williams in 1964 and was later refined by Robert W. Floyd in 1965 and J. Michael Steele in 1972. Heap sort is an in-place algorithm, which means it does not require any additional storage space.
+                    </p>
+                    <br>
+                    <p>
+                        The time complexity of heap sort is O(nlogn), where n is the number of elements to be sorted. This makes heap sort one of the most efficient sorting algorithms in terms of time complexity.
+                        </p>
+                    <br>
+                    <div>
+                        <h3>Steps</h3>
+                        <p>
+                        1. Build a max heap from the input data. <br>
+                        2. Find the maximum element in the heap and swap it with the last element of the heap. <br>
+                        3. Remove the last element (the maximum) from the heap and place it in the sorted array. <br>
+                        4. Repeat steps 2 and 3 until the heap is empty.
+                        </p>
+                    </div>
+                </div>                
+              </div>
+            </div>
+            <div class="code-sample">
+              <pre><code class="language-python">
+def bubbleSort(arr):
+n = len(arr)
+for i in range(n-1):
+    for j in range(0, n-i-1):
+        if arr[j] > arr[j+1]:
+            arr[j], arr[j+1] = arr[j+1], arr[j]
+              </code></pre>
+            </div>            
+        </section>
+        <section id="main" class="reveal">
+          <div class="button-container">
+            <div class="button-group">
+              <label for="speed">Speed (%)</label>
+              <input
+                type="number"
+                id="speed"
+                min="1"
+                max="999"
+                step="1"
+                value="40"
+            />
+            </div>
+            
+            <div class="button-group">
+              <label for="size"># of elements</label>
+              <input
+                  type="number"
+                  id="size"
+                  min="1"
+                  max="10000"
+                  step="1"
+                  value="20"
+              />
+            </div>
+            
+            <div class="button-group">
+              <button id="randomize-array-button">Shuffle Array</button>
+            </div>
+
+            <div class="button-group">
+              <button id="start-button">Start</button>
+            </div>
+
+            <div class="button-group">
+              <button id="stop-button">Stop</button>
+            </div>
+
+            <div class="button-group">
+              <button id="sound-toggle" data-value="1">Sound <span style="color:green" class="dynamic-text">On!</span></button>
+            </div>
+
+            <div class="button-group">
+              <button class="go-home">Go Home</button>
+            </div>
+
+            <div class="button-group">
+              <button class="compare">Compare</button>
+            </div>
+
+          </div>
+          <div id="sort-container">
+
+          </div>
+        </section>
+    </div>
+  </body>
+</html>

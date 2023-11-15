@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../src/smallStyle.css" />
+    <script src="../src/script.js" defer></script>
+    <script src="../src/req.js" defer></script>
+    <script src="../src/insertion_sort.js" defer></script>
+    <script src="../src/smallAnimation.js" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/styles/github-dark.min.css"/>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"></script>
+    <title>Insertion Sort</title>
+  </head>
+  <body>
+    <div class="container" id="main-page">
+        <section id="intro">
+            <div id="main-text">
+              <span id="main-text-content" data-value="INSERTION SORT">XXXXXXXXXXXXXX</span>
+              <div class="home-button">
+                <div class="button-group">
+                  <button class="go-home">Home</button>
+                </div>
+                <div class="button-group">
+                  <button class="compare">Compare</button>
+                </div>
+              </div>
+            </div>
+            <div class="text-wrapper">
+              <div class="description-text">
+                <p style="color:lightgray;opacity:0.8">(scroll down to visualize)</p>
+                <br>
+                <div>
+                  <p>Insertion sort is a simple sorting algorithm that works the way we sort playing cards in our hands. We start with an empty left hand and the cards face down on the table. We then remove one card at a time from the table and insert it into the correct position in the left hand. To find the correct position for a card, we compare it with each of the cards already in the hand, from right to left.</p>
+                  <br>
+                  <p>Insertion sort has a time complexity of O(n^2) for average and worst cases, but it performs well for small lists and is very efficient for lists that are already partially sorted.</p>
+                  <br>
+                  <div>
+                    <h3>Steps:</h3>
+                    <p>1. Iterate from arr[1] to arr[n] over the array.</p>
+                    <p>2. Compare the current element (key) to its predecessor.</p>
+                    <p>3. If the key element is smaller than its predecessor, compare it to the elements before. Move the greater elements one position up to make space for the swapped element.</p>
+                    <p>4. Repeat step 3 until the key element is in its correct position.</p>
+                    <p>5. Repeat steps 1 through 4 for the remaining elements in the array.</p>
+                  </div>
+                </div>                
+              </div>
+            </div>
+            <div class="code-sample">
+              <pre><code class="language-python">
+def insertionSort(arr):
+for i in range(1, len(arr)):
+    key = arr[i]
+    j = i-1
+    while j >= 0 and key < arr[j] :
+            arr[j + 1] = arr[j]
+            j -= 1
+    arr[j + 1] = key
+              </code></pre>
+            </div>            
+        </section>
+        <section id="main" class="reveal">
+          <div class="button-container">
+            <div class="button-group">
+              <label for="speed">Speed (%)</label>
+              <input
+                type="number"
+                id="speed"
+                min="1"
+                max="999"
+                step="1"
+                value="40"
+            />
+            </div>
+            
+            <div class="button-group">
+              <label for="size"># of elements</label>
+              <input
+                  type="number"
+                  id="size"
+                  min="1"
+                  max="10000"
+                  step="1"
+                  value="20"
+              />
+            </div>
+            
+            <div class="button-group">
+              <button id="randomize-array-button">Shuffle Array</button>
+            </div>
+
+            <div class="button-group">
+              <button id="start-button">Start</button>
+            </div>
+
+            <div class="button-group">
+              <button id="stop-button">Stop</button>
+            </div>
+
+            <div class="button-group">
+              <button id="sound-toggle" data-value="1">Sound <span style="color:green" class="dynamic-text">On!</span></button>
+            </div>
+
+            <div class="button-group">
+              <button class="go-home">Go Home</button>
+            </div>
+
+            <div class="button-group">
+              <button class="compare">Compare</button>
+            </div>
+
+          </div>
+          <div id="sort-container">
+
+          </div>
+        </section>
+    </div>
+  </body>
+</html>

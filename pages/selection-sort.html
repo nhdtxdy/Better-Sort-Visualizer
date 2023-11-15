@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../src/smallStyle.css" />
+    <script src="../src/script.js" defer></script>
+    <script src="../src/req.js" defer></script>
+    <script src="../src/selection_sort.js" defer></script>
+    <script src="../src/smallAnimation.js" defer></script>
+    <link rel="stylesheet" href="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/styles/github-dark.min.css"/>
+    <script src="https://unpkg.com/@highlightjs/cdn-assets@11.7.0/highlight.min.js"></script>
+    <title>Selection Sort</title>
+  </head>
+  <body>
+    <div class="container" id="main-page">
+        <section id="intro">
+            <div id="main-text">
+              <span id="main-text-content" data-value="SELECTION SORT">XXXXXXXXXXXXXX</span>
+              <div class="home-button">
+                <div class="button-group">
+                  <button class="go-home">Home</button>
+                </div>
+                <div class="button-group">
+                    <button class="compare">Compare</button>
+                  </div>
+              </div>
+            </div>
+            <div class="text-wrapper">
+              <div class="description-text">
+                <p style="color:lightgray;opacity:0.8">(scroll down to visualize)</p>
+                <br>
+                <div>
+                    <p>Selection sort is a simple comparison-based sorting algorithm. It sorts an array by repeatedly finding the minimum element from unsorted part and putting it at the beginning. It has O(n^2) time complexity, making it inefficient on large lists, and generally performs worse than the similar insertion sort. Selection sort is noted for its simplicity and can be useful when auxiliary memory is limited.</p>
+                    <br>
+                    <div>
+                        <h3>Steps:</h3>
+                        <p>1. Find the minimum element in the unsorted part of the array.</p>
+                        <p>2. Swap the minimum element with the first element of the unsorted part.</p>
+                        <p>3. Move the boundary of the sorted part one element to the right.</p>
+                        <p>4. Repeat steps 1-3 until the entire array is sorted.</p>
+                    </div>
+                    <br>
+                </div>                
+              </div>
+            </div>
+            <div class="code-sample">
+              <pre><code class="language-python">
+def selection_sort(A):
+    for i in range(len(A)):
+        min_idx = i
+        for j in range(i+1, len(A)):
+            if A[min_idx] > A[j]:
+                min_idx = j
+        A[i], A[min_idx] = A[min_idx], A[i]
+              </code></pre>
+            </div>            
+        </section>
+        <section id="main" class="reveal">
+          <div class="button-container">
+            <div class="button-group">
+              <label for="speed">Speed (%)</label>
+              <input
+                type="number"
+                id="speed"
+                min="1"
+                max="999"
+                step="1"
+                value="40"
+            />
+            </div>
+            
+            <div class="button-group">
+              <label for="size"># of elements</label>
+              <input
+                  type="number"
+                  id="size"
+                  min="1"
+                  max="10000"
+                  step="1"
+                  value="20"
+              />
+            </div>
+            
+            <div class="button-group">
+              <button id="randomize-array-button">Shuffle Array</button>
+            </div>
+
+            <div class="button-group">
+              <button id="start-button">Start</button>
+            </div>
+
+            <div class="button-group">
+              <button id="stop-button">Stop</button>
+            </div>
+
+            <div class="button-group">
+              <button id="sound-toggle" data-value="1">Sound <span style="color:green" class="dynamic-text">On!</span></button>
+            </div>
+
+            <div class="button-group">
+              <button class="go-home">Go Home</button>
+            </div>
+
+            <div class="button-group">
+                <button class="compare">Compare</button>
+            </div>
+
+          </div>
+          <div id="sort-container">
+
+          </div>
+        </section>
+    </div>
+  </body>
+</html>

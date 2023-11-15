@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../src/compareStyle.css" />
+    <script src="../src/script.js" defer></script>
+    <script src="../src/req_compare.js" defer></script>
+    <script src="../src/bubble_sort.js" defer></script>
+    <script src="../src/insertion_sort.js" defer></script>
+    <script src="../src/heap_sort.js" defer></script>
+    <script src="../src/merge_sort.js" defer></script>
+    <script src="../src/quick_sort.js" defer></script>
+    <script src="../src/radix_sort.js" defer></script>
+    <script src="../src/selection_sort.js" defer></script>
+    <title>Compare</title>
+  </head>
+  <body>
+    <div class="container" id="main-page">
+        <section id="main" class="reveal active">
+          <div class="button-container">
+            <div class="button-group">
+              <label for="speed">Speed (%)</label>
+              <input
+                type="number"
+                id="speed"
+                min="1"
+                max="999"
+                step="1"
+                value="40"
+            />
+            </div>
+            
+            <div class="button-group">
+              <label for="size"># of elements</label>
+              <input
+                  type="number"
+                  id="size"
+                  min="1"
+                  max="10000"
+                  step="1"
+                  value="20"
+              />
+            </div>
+            
+            <div class="button-group">
+              <button id="randomize-array-button">Shuffle Array</button>
+            </div>
+
+            <div class="button-group">
+              <button id="start-button">Start</button>
+            </div>
+
+            <div class="button-group">
+              <button id="stop-button">Stop</button>
+            </div>
+
+            <!-- <div class="button-group">
+              <button id="sound-toggle" data-value="1">Sound <span style="color:green" class="dynamic-text">On!</span></button>
+            </div> -->
+
+            <div class="button-group">
+              <button class="go-home">Go Home</button>
+            </div>
+
+            <!-- <div class="button-group"> -->
+              <select name="leftBar" id="leftAlgo">
+                <option value="bubble">Bubble Sort</option>
+                <option value="insertion">Insertion Sort</option>
+                <option value="heap">Heap Sort</option>
+                <option value="merge">Merge Sort</option>
+                <option value="quick">Quick Sort</option>
+                <option value="radix">Radix Sort</option>
+                <option value="selection">Selection Sort</option>
+              </select>
+            <!-- </div> -->
+
+            <!-- <div class="button-group"> -->
+              <select name="rightBar" id="rightAlgo">
+                <option value="bubble">Bubble Sort</option>
+                <option value="insertion">Insertion Sort</option>
+                <option value="heap">Heap Sort</option>
+                <option value="merge">Merge Sort</option>
+                <option value="quick">Quick Sort</option>
+                <option value="radix">Radix Sort</option>
+                <option value="selection">Selection Sort</option>
+              </select>
+            <!-- </div> -->
+
+          </div>
+          <div class="sort-container" id="left">
+
+          </div>
+          <div class="sort-container" id="right">
+
+          </div>
+        </section>
+    </div>
+  </body>
+</html>
